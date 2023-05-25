@@ -1,0 +1,39 @@
+version: "3.9"
+services:
+  mariadb:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: mydatabase
+    ports:
+      - "3306:3306"
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: mydatabase
+    ports:
+      - "27017:27017"
+  redis:
+    image: redis
+    restart: always
+    command: redis-server --requirepass password
+    ports:
+      - "6379:6379"
+  cassandra:
+    image: cassandra
+    restart: always
+    environment:
+      CASSANDRA_CLUSTER_NAME: mycluster
+      CASSANDRA_DC: mydc
+      CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+      CASSANDRA_AUTHenticator: PasswordAuthenticator
+      CASSANDRA_PASSWORD: password
+      CASSANDRA_USERNAME: admin
+    ports:
+      - "9042:9042"
